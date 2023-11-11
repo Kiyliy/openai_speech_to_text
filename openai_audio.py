@@ -6,8 +6,11 @@ import base64
 import pyautogui
 import threading
 import logging
+import pyperclip
 from threading import Lock
 import os
+
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -140,8 +143,10 @@ def send_to_openai_api(audio_file_path):
         transcription = response.json()['text']
         print("转录文本:", transcription)
         logging.info("转录文本: %s", transcription)
-        # 如果你想让转录的文本输入到当前激活的文本框中
-        pyautogui.write(transcription)
+        # 复制文本到剪贴板
+        pyperclip.copy(transcription)
+        # 模拟按键粘贴文本
+        pyautogui.hotkey('ctrl', 'v')
     else:
         print("转录失败:", response.text)
 
