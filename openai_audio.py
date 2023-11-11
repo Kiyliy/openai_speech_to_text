@@ -86,7 +86,7 @@ def stop_recording():
 
 def record():
     global frames
-    logging.info("录音结束...")
+    logging.info("录音开始...")
     p = pyaudio.PyAudio()
     
     stream = p.open(format=format, channels=channels, rate=rate, input=True, frames_per_buffer=chunk)
@@ -130,12 +130,16 @@ def send_to_openai_api(audio_file_path):
             url=url,
             headers=headers,
             files=files,
-            data={'model': 'whisper-1'}
+            data={
+                'model': 'whisper-1',
+                "language": "zh"
+                }
         )
 
     if response.status_code == 200:
         transcription = response.json()['text']
         print("转录文本:", transcription)
+        logging.info("转录文本: %s", transcription)
         # 如果你想让转录的文本输入到当前激活的文本框中
         pyautogui.write(transcription)
     else:

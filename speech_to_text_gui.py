@@ -4,6 +4,27 @@ import keyboard
 import threading
 import time
 from tkinter import simpledialog
+from tkinter.scrolledtext import ScrolledText
+import logging
+
+
+# 创建一个日志处理器，它将日志消息发送到一个文本控件
+class TextHandler(logging.Handler):
+    def __init__(self, text):
+        super().__init__()
+        self.text = text
+
+    def emit(self, record):
+        msg = self.format(record)
+        def append():
+            self.text.configure(state='normal')
+            self.text.insert(tk.END, msg + '\n')
+            self.text.configure(state='disabled')
+            # 自动滚动到底部
+            self.text.yview(tk.END)
+        # 在主线程中更新文本控件
+        self.text.after(0, append)
+
 
 # 切换录音状态
 def toggle_microphone():
@@ -55,6 +76,20 @@ hotkey_id = keyboard.on_press_key("ctrl", on_ctrl_press)
 root = tk.Tk()
 root.title("语音转文字工具")
 
+# 创建一个ScrolledText控件用于显示日志
+log_area = ScrolledText(root, state='disabled', height=10)
+log_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+
+# 配置日志的处理器为TextHandler
+text_handler = TextHandler(log_area)
+formatter = logging.Formatter('%(asctime)s: %(levelname)s: %(message)s')
+text_handler.setFormatter(formatter)
+
+# 获取日志器，并添加TextHandler作为处理器
+logger = logging.getLogger()
+logger.addHandler(text_handler)
+logger.setLevel(logging.INFO)
+
 # 创建设置按钮
 settings_button = tk.Button(root, text="设置API和URL", command=set_api_url)
 settings_button.pack(side=tk.LEFT)
@@ -63,7 +98,7 @@ settings_button.pack(side=tk.LEFT)
 root.wm_attributes("-topmost", 1)
 
 # 设置窗口大小并禁止调整窗口大小
-root.geometry('500x100')  # 你可以根据需要调整这个大小
+root.geometry('500x200')  # 你可以根据需要调整这个大小
 root.resizable(False, False)
 
 # 创建麦克风按钮
