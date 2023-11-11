@@ -5,6 +5,10 @@
 
 适配Windows, 解决Windows打字烦恼
 
+## 特色
+
+本软件由GPT-4提供技术支持
+
 ## 功能
 
 - [x] 自定义API-Key
@@ -33,6 +37,14 @@
 ```bash
 git clone https://github.com/Kiyliy/openai_speech_to_text.git
 cd openai_speech_to_text
+```
+
+## 细节介绍:
+
+默认要求使用简体中文回复, 下个版本会支持语言选择
+
+```
+ "prompt": "Use simplified Chinese"
 ```
 
 

@@ -135,7 +135,8 @@ def send_to_openai_api(audio_file_path):
             files=files,
             data={
                 'model': 'whisper-1',
-                "language": "zh"
+                "language": "zh",
+                "prompt": "Use simplified Chinese"
                 }
         )
 
