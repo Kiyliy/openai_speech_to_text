@@ -3,6 +3,8 @@
 
 这是一个使用Python编写的语音转文字应用程序，它允许用户通过OPENAI-API将语音实时转换为文字。
 
+适配Windows, 解决Windows打字烦恼
+
 ## 功能
 
 - [x] 自定义API-Key
@@ -14,6 +16,8 @@
 ## 下一版本
 
 - [ ] 支持语言选择
+- [ ] 优化UI页面
+- [ ] 提供浏览器插件版本
 
 ## 快速开始
 
@@ -27,6 +31,8 @@
 git clone https://github.com/Kiyliy/openai_speech_to_text.git
 cd openai_speech_to_text
 ```
+
+
 
 ## 贡献
 
