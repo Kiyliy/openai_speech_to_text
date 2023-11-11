@@ -23,6 +23,9 @@
 
 下载最新的[发布版本](https://github.com/Kiyliy/openai_speech_to_text/releases/)，解压并运行可执行文件即可开始使用。
 
+注意: URL需要填写完整的请求地址:
+示例: https://api.openai.com/v1/audio/transcriptions
+
 ## 开发
 
 如果您想查看源代码或参与贡献，请克隆仓库并安装所需的依赖项：
