@@ -76,9 +76,14 @@ hotkey_id = keyboard.on_press_key("ctrl", on_ctrl_press)
 root = tk.Tk()
 root.title("语音转文字工具")
 
-# 创建一个ScrolledText控件用于显示日志
+# 创建一个顶部框架来放置按钮
+top_frame = tk.Frame(root)
+top_frame.pack(side=tk.TOP, fill=tk.X)
+
+# 创建一个ScrolledText控件用于显示日志，并放置在主窗口
 log_area = ScrolledText(root, state='disabled', height=10)
-log_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+log_area.pack(side=tk.TOP, padx=0, pady=(0, 0), fill=tk.BOTH, expand=True)
+
 
 # 配置日志的处理器为TextHandler
 text_handler = TextHandler(log_area)
@@ -90,21 +95,21 @@ logger = logging.getLogger()
 logger.addHandler(text_handler)
 logger.setLevel(logging.INFO)
 
-# 创建设置按钮
-settings_button = tk.Button(root, text="设置API和URL", command=set_api_url)
-settings_button.pack(side=tk.LEFT)
+# 创建设置按钮并放置在顶部框架
+settings_button = tk.Button(top_frame, text="设置API和URL", command=set_api_url)
+settings_button.pack(side=tk.LEFT, padx=0, pady=0)
 
 # 设置窗口的置顶
 root.wm_attributes("-topmost", 1)
 
 # 设置窗口大小并禁止调整窗口大小
-root.geometry('500x200')  # 你可以根据需要调整这个大小
+root.geometry('500x200')
 root.resizable(False, False)
 
-# 创建麦克风按钮
-microphone_button = tk.Button(root, text="开始录音", command=toggle_microphone)
-microphone_button.pack(expand=True)
 
+# 创建麦克风按钮并放置在顶部框架
+microphone_button = tk.Button(top_frame, text="开始录音", command=toggle_microphone)
+microphone_button.pack(side=tk.LEFT, padx=0, pady=(0, 0))
 
 # 在应用程序关闭时调用的函数
 def on_closing():

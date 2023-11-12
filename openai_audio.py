@@ -129,21 +129,26 @@ def send_to_openai_api(audio_file_path):
 
     with open(audio_file_path, 'rb') as audio_file:
         files = {'file': audio_file}
-        response = requests.post(
-            url=url,
-            headers=headers,
-            files=files,
-            data={
-                'model': 'whisper-1',
-                "language": "zh",
-                "prompt": "Use simplified Chinese"
-                }
-        )
+        try:
+            response = requests.post(
+                url=url,
+                headers=headers,
+                files=files,
+                data={
+                    'model': 'whisper-1',
+                    "language": "zh",
+                    "prompt": "respond in simplified Chinese"
+                    },
+                timeout = 10 # 超时时间   
+            )
+        except Exception as e:
+            logging.error(e)
+            return
 
     if response.status_code == 200:
         transcription = response.json()['text']
         print("转录文本:", transcription)
-        logging.info("转录文本: %s", transcription)
+        logging.info("转录文本: %s\n", transcription)
         # 复制文本到剪贴板
         pyperclip.copy(transcription)
         # 模拟按键粘贴文本
