@@ -55,6 +55,10 @@ def save_config(api_key, url):
 def get_api_key():
     return random.choice(api_key)
 
+#删除一个key
+def delete_key(key):
+    api_key.remove(key)
+
 #返回url
 def get_api_url():
     return url

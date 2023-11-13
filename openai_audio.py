@@ -82,6 +82,8 @@ def save_recording(frames, audio):
     wf.setframerate(rate)
     wf.writeframes(b''.join(frames))
     wf.close()
+
+    api_key = get_api_key.get_api_key()
     transcription= send_to_openai_api(api_key,url,'temp_audio.wav')
     paste_text(transcription)
     

@@ -19,6 +19,7 @@
 ## 功能
 
 - [x] 自定义API-Key
+- [x] 支持多key随机
 - [x] 自定义URL
 - [x] 双击Ctrl控制录音
 - [x] 文字自动写入光标所在文本框
@@ -52,6 +53,12 @@ cd openai_speech_to_text
 
 ```
  "prompt": "Use simplified Chinese"
+```
+
+如果达到每日限制, 则会临时删除key
+
+```
+response.status_code == 429 and ("requests per day" in response.json()['error']['message'])
 ```
 
 

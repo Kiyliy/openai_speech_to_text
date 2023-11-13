@@ -1,11 +1,11 @@
 import tkinter as tk
 import openai_audio  # 确保这个文件在同一目录下
 import keyboard
-import threading
 import time
 from tkinter import simpledialog
 from tkinter.scrolledtext import ScrolledText
 import logging
+from get_api_key import get_api_key , save_config , set_api_data
 
 
 # 创建一个日志处理器，它将日志消息发送到一个文本控件
@@ -58,8 +58,8 @@ def set_api_url():
     url = simpledialog.askstring("API设置", "请输入API URL:")
     
     if api_key and url:
-        openai_audio.set_api_data(api_key, url)
-        openai_audio.save_config(api_key, url)  # 保存设置
+        set_api_data(api_key, url)
+        save_config(api_key, url)  # 保存设置
     else:
         tk.messagebox.showerror("错误", "API密钥和URL不能为空")
 
