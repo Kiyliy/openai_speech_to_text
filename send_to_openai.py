@@ -4,8 +4,19 @@ import logging
 import pyperclip
 from threading import Lock
 from get_api_key import get_api_key
+import os
 
 logging.basicConfig(level=logging.INFO)
+
+# Get the absolute path of the current script file
+script_path = os.path.abspath(__file__)
+
+# Get the directory name of the script file
+directory = os.path.dirname(script_path)
+
+# Change the working directory to the script directory
+os.chdir(directory)
+os.chdir(os.path.dirname(__file__))
 
 
 def send_to_openai_api(api_key,url,audio_file_path)->str:
@@ -32,7 +43,6 @@ def send_to_openai_api(api_key,url,audio_file_path)->str:
             )
             if response.status_code == 200:
                 transcription = response.json()['text']
-                print("转录文本:", transcription)
                 logging.info("转录文本: %s\n", transcription)
                 return transcription
             else:
@@ -52,6 +62,7 @@ def send_to_openai_api(api_key,url,audio_file_path)->str:
 
 #模拟按键操作: 复制粘贴文本
 def paste_text(transcription):
+        logging.info("修复后文本: %s\n", transcription)
         # 复制文本到剪贴板
         pyperclip.copy(transcription)
         # 模拟按键粘贴文本

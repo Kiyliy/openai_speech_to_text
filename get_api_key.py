@@ -4,11 +4,9 @@ import logging
 import os
 import json
 
-#环境变量
-config_file = "config.json"
+config_file = os.path.join(os.path.dirname(__file__), 'config.json')
 
-
-#API和URL变量
+#从全局变量中API和URL变量
 def set_api_data(key, api_url):
     global api_key, url
     api_key = key

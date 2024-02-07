@@ -1,11 +1,21 @@
 import tkinter as tk
-import openai_audio  # 确保这个文件在同一目录下
+import sys
+import os
+
+# Add the parent directory of the current file to the module search path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
+
+import openai_audio
 import keyboard
 import time
 from tkinter import simpledialog
 from tkinter.scrolledtext import ScrolledText
 import logging
 from get_api_key import get_api_key , save_config , set_api_data
+import os
+
 
 
 # 创建一个日志处理器，它将日志消息发送到一个文本控件

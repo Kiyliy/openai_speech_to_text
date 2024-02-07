@@ -1,19 +1,12 @@
 import pyaudio
 import wave
-import requests
-import json
-import base64
-import pyautogui
 import threading
 import logging
-import pyperclip
 from threading import Lock
-import os
-import random
-import time
 import get_api_key
 from send_to_openai import send_to_openai_api , paste_text
-
+import ChatGPT_fix
+from tran_to_simpliedchinese import convert_traditional_to_simplified
 
 logging.basicConfig(level=logging.INFO)
 
@@ -85,9 +78,11 @@ def save_recording(frames, audio):
 
     api_key = get_api_key.get_api_key()
     transcription= send_to_openai_api(api_key,url,'temp_audio.wav')
-    paste_text(transcription)
+    # if "v1/audio/transcriptions" in url:
+    #chat_url = url.replace("v1/audio/transcriptions","v1/chat/completions")
+    # transcription_fixed = ChatGPT_fix.Chatfix("gpt-3.5-turbo",api_key,chat_url, transcription)
+    #模拟按键操作复制到剪切板
+    paste_text(convert_traditional_to_simplified(transcription))
     
-
-
 if __name__ == "__main__":
     pass
